@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>WORKING-r100SkinShader Xfer</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+		<!-- <link rel="stylesheet" href="css/ion.rangeSlider.css" />
+		<link rel="stylesheet" href="css/faceMaker.css" />
+		<link rel="stylesheet" href="css/ion.rangeSlider.skinNice.css" />
+		<link rel="stylesheet" href="css/chosen.css" /> -->
+		<link rel="stylesheet" href="css/ion.rangeSlider1.css" />
+		<link rel="stylesheet" href="css/faceMaker1.css" />
+		<link rel="stylesheet" href="css/ion.rangeSlider.skinNice1.css" />
+		<link rel="stylesheet" href="css/chosen1.css" />
+
+		
+	</head>
+
+	<style>
+		.containerInterface{
+			width: 348px!important;
+			/* height: fit-content!important; */
+		}
+	</style>
+	<body>
+		<script src="js/jquery/jquery-1.11.0.min.js"></script>
+		<script src="js/ion-RangeSlider/slider.js"></script>
+
+		<!-- <script src="../build/three.js"></script> -->
+
+
+
+
+
+		<script src="js/three/build/threexfer.min.js"></script> <!--R67 "ONE"-->
+
+
+		<script src="../three.js-r100/build/three.min.js"></script>
+		<!-- <script src="../three.js-r100/build/three.min.js"></script> -->
+
+    	<!-- <script src="js/three/texturepass.js"></script> -->
+    	<!-- <script src="js/three/convolutionshader.js"></script> -->
+   		<!-- <script src="js/three/bloompass.js"></script> -->
+		<script src="js/three/ShaderSkin-xfer.js"></script>  <!--R67-->
+
+
+		<style>
+#THREEJS{
+	height: 100vh!important;
+	width: 100vw!important;
+}
+
+		</style>
+
+		<!-- <script src="../three.js-r100/examples/js/shaders/BleachBypassShader.js"></script>
+		<script src="../three.js-r100/examples/js/shaders/ConvolutionShader.js"></script>
+		<script src="../three.js-r100/examples/js/shaders/CopyShader.js"></script>
+
+		<script src="../three.js-r100/examples/js/postprocessing/EffectComposer.js"></script>
+		<script src="../three.js-r100/examples/js/postprocessing/RenderPass.js"></script>
+		<script src="../three.js-r100/examples/js/postprocessing/BloomPass.js"></script>
+		<script src="../three.js-r100/examples/js/postprocessing/TexturePass.js"></script>
+		<script src="../three.js-r100/examples/js/postprocessing/ShaderPass.js"></script>
+		<script src="../three.js-r100/examples/js/postprocessing/MaskPass.js"></script>
+
+		<script src="../three.js-r100/examples/js/loaders/GLTFLoader.js"></script>
+		<script src="../three.js-r100/examples/js/WebGL.js"></script>
+
+		<script src="../three.js-r100/examples/js/libs/stats.min.js"></script>
+
+		<script src="../three.js-r100/examples/js/ShaderSkin.js"></script>
+	
+	
+	
+	-->
+
+
+	<script src="../three.js-r100/build/three.js"></script>
+
+	<script src="../three.js-r100/examples/js/ShaderSkin.js"></script>
+
+	<script src="../three.js-r100/examples/js/shaders/BleachBypassShader.js"></script>
+	<script src="../three.js-r100/examples/js/shaders/ConvolutionShader.js"></script>
+	<script src="../three.js-r100/examples/js/shaders/CopyShader.js"></script>
+	<script src="../three.js-r100/examples/js/controls/OrbitControls.js"></script>
+
+	<script src="../three.js-r100/examples/js/postprocessing/EffectComposer.js"></script>
+	<script src="../three.js-r100/examples/js/postprocessing/RenderPass.js"></script>
+	<script src="../three.js-r100/examples/js/postprocessing/BloomPass.js"></script>
+	<script src="../three.js-r100/examples/js/postprocessing/TexturePass.js"></script>
+	<script src="../three.js-r100/examples/js/postprocessing/ShaderPass.js"></script>
+	<script src="../three.js-r100/examples/js/postprocessing/MaskPass.js"></script>
+	<script src="../three.js-r100/examples/js/utils/BufferGeometryUtils.js"></script>
+
+	<script src="../three.js-r100/examples/js/loaders/GLTFLoader.js"></script>
+	<script src="../three.js-r100/examples/js/WebGL.js"></script>
+	<script src="../three.js-r100/examples/js/libs/stats.min.js"></script>
+
+
+		<!-- <script src="js/three/shaders/CopyShader.js"></script> -->
+		<!-- <script src="js/three/postprocessing/EffectComposer.js"></script> -->
+		<!-- <script src="js/three/postprocessing/RenderPass.js"></script> -->
+		<!-- <script src="js/three/postprocessing/ShaderPass.js"></script> -->
+		<!-- <script src="js/three/postprocessing/MaskPass.js"></script>	 -->
+		<script src="data/dataArray.js"></script>
+		<script src="js/three/Detector.js"></script>
+		<script src="js/three/libs/stats.min.js"></script>
+		
+		
+		<div id="facepage">
+			<div id="loadingScreen"></div>
+			<div id="statusText"></div>
+
+			<div id='alertBoxBackground'>
+				<div id="alertBox">
+					<div id='alertBoxTitle'></div>
+						<div id="innerAlertBox" style="display: none" class="sp_table"><!--style="display: none"-->
+						</div>
+					<div id='alertBoxText'></div>
+				</div>
+			</div>
+
+			<div class="containerInterface" id="containerInterface">
+				<div class="sidebar left" id="sidebarLeft"></div>
+				<div class="sidebar left" id="sidebarRight">
+					<div id="settingsSliderGrp" class="ctrlgrp">
+
+					</div>
+				</div>
+			</div>
+			
+			<div id="renderAvatarBox">
+				<p id="makeYourPhoto" class="draggable" ></p>
+
+				<div class="ctrlgrp rendermenu">
+					<div class="rendermenu">
+						<!-- <div class="ctrlBtnGrpCol"><div class="sp_table_cell borderless"><a class="tooltip tooltipbottom" href="#"><input type="button" class="renderButton bigButton" onclick="renderFace()"><span id="renderButton">Render Face</span></input></a></div></div> -->
+						<!-- <div class="ctrlBtnGrpCol"><div class="sp_table_cell borderless"><a class="tooltip tooltipbottom" href="#"><input type="button" class="lightButton bigButton" onclick="btnChangeLight()"><span id="changeLight">Change Light</span></input></a></div></div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	
+		<a id="newface" class="tooltip tooltipleft" href="javascript:fallbackStart()">
+			<span id="restartFaceMaker">Restart FaceMaker</span>
+		</a>
+		
+		<div id='infoBoxBackground'>
+			<div id='infoBox'>
+				<div id='infoBoxTitle'></div>
+				<div id='infoBoxImage'></div>
+				<div id='infoBoxText'></div>
+				<div id='buttonHolder'></div>
+			</div>
+		</div>
+		
+
+		
+		<div id="evaluationBackground" style="display: none">
+			<div id="evaluationResult"  >
+				<div id="evaluationBoard" class="column50">
+					<div class="sp_table_row">
+						<div class="sp_table_row">
+							<div class="sp_table_cell">
+								<h2>Filters</h2>
+								<div id="filterTable" class="inEval"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="column50">
+					<div class="sp_table_row">
+						<div class="sp_table_row">
+							<div class="sp_table_cell">
+								<h2 id="resultsTitle" >Face Results</h2>
+								<div class="sp_sub_table" id="faceResultTable">
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="column50">
+					<div class="sp_table_row">
+						<div class="sp_table_row">
+							<div class="sp_table_cell">
+								<h2 id="demoTitle" >Demographic Results</h2>
+								<div class="sp_sub_table" id="demoResultTable">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="container3D">
+			<script>
+				var sceneThree
+			</script>
+			<script src="./SS-xfer-placement.js"></script>
+			<script>
+
+				
+        
+        //INIT ONEJS
+				function initOne() {
+					
+					// clock = new ONE.Clock();
+					container = document.createElement( 'div' );
+					document.getElementById("container3D").appendChild( container );
+					
+
+					camera = new ONE.PerspectiveCamera( 10, window.innerWidth / window.innerHeight, 10, 10000 );
+					camera.position.z = camDistance;
+					camera.lookAt(camLookAt);
+					// camHeight = camLookAt.y;
+          camHeight = camLookAt.y;
+          camera.position.y=100;
+					
+					targetZoom = zoom = camera.fov;
+					
+					//console.log("targetZoom: " + targetZoom);
+					scene = new ONE.Scene();
+					// sceneThree = new THREE.Scene();
+					
+					for(var map in faceMaps){
+						for(var i = 0; i < faceMaps[map].length; i++){
+							filesToLoad++;
+						}
+					}
+					
+					//console.log("Maps: " + filesToLoad);
+					
+					for(var part in faceMorphingFiles){
+						for(var mesh in faceMorphingFiles[part]){
+							filesToLoad++;	
+						}
+					}
+					
+					fileCount = filesToLoad;
+					lightDistance = 3000;
+					//console.log("filesToLoad: " + filesToLoad);
+					// LIGHTS
+					ambientLight = new ONE.AmbientLight( 0x444444, 100.0 );
+					scene.add( ambientLight );
+					
+					pointLight = new ONE.PointLight( 0xffffff, 0.4, 1000 );
+					pointLight.position.set( -lightDistance, -40, -40 );
+					scene.add( pointLight );
+
+					keyLight = new ONE.DirectionalLight( 0xffffff, 0.9 );
+					keyLight.position.set( lightDistance, 150, 500 );
+					//keyLight.color.setHSL( 0.6, 1, 0.85 );
+					scene.add( keyLight );
+					keyLight.castShadow = true;
+					//keyLight.shadowCameraVisible = true;
+					keyLight.shadowMapWidth = 2048;
+					keyLight.shadowMapHeight = 2048;
+					keyLight.shadowCameraNear = 200;
+					keyLight.shadowCameraFar = 3500;
+					keyLight.shadowCameraLeft = -500;
+					keyLight.shadowCameraRight = 500;
+					keyLight.shadowCameraTop = 500;
+					keyLight.shadowCameraBottom = -500;
+					keyLight.shadowBias = -0.005;
+					keyLight.shadowDarkness = 0.07;
+
+
+					// MATERIALS
+					for(var map in faceMaps){
+						canvasImages[map] = null;
+						canvasImages[map] = document.createElement('canvas');
+						canvasContexts[map] = canvasImages[map].getContext('2d');
+						canvasTextures[map] = new ONE.Texture(canvasImages[map]);
+						canvasImages[map].width = faceMaps[map]["width"];
+						canvasImages[map].height = faceMaps[map]["width"];	
+						//renderer.deallocateTexture(canvasTextures[map]);
+						
+						for(var i = 0; i < faceMaps[map].length; i++){
+							//console.log("Map Length: " + faceMaps[map].length + " " + map + " " + faceMaps[map][i]["src"] );
+							faceMaps[map][i]["img"] = new Image();
+							faceMaps[map][i]["img"].onload = function() {
+								removeLoadingBar();
+							};
+							faceMaps[map][i]["img"].src = faceMaps[map][i]["src"];
+						}
+					}			
+	
+				
+            
+var ambient = 0x111111, diffuse = 0xbbbbbb, specular = 0x070707, shininess = 50;
+
+specular = 0x555555;
+
+var shader = ONE.ShaderSkin[ "skin" ];
+
+var mapHeight = canvasTextures["face"];		
+					var mapSpecular = canvasTextures["face"];			
+					var mapColor = canvasTextures["face"];
+
+					window.faceTexture = mapColor
+var uniformsUV = ONE.UniformsUtils.clone( shader.uniforms );
+
+uniformsUV[ "tNormal" ].texture = mapColor;
+// uniformsUV[ "tNormal" ].value = ONE.ImageUtils.loadTexture( "https://cdn.glitch.global/a5d90d24-dc8f-49e8-9253-7306c2f4d007/Infinite-Level_02_Tangent_SmoothUV%20(1).jpg?v=1659924639254" );
+uniformsUV[ "uNormalScale" ].value = -0.75;
+
+uniformsUV[ "tDiffuse" ].texture = mapColor;
+uniformsUV[ "tDiffuse" ].value = mapColor;
+
+uniformsUV[ "passID" ].value = 0;
+
+uniformsUV[ "uDiffuseColor" ].value.setHex( diffuse );
+uniformsUV[ "uSpecularColor" ].value.setHex( specular );
+uniformsUV[ "uAmbientColor" ].value.setHex( ambient );
+
+uniformsUV[ "uRoughness" ].value = 0.185;
+uniformsUV[ "uSpecularBrightness" ].value = 0.8;
+
+
+
+
+
+var uniforms = ONE.UniformsUtils.clone( uniformsUV );
+uniforms[ "tDiffuse" ].texture = uniformsUV[ "tDiffuse" ].texture;
+uniforms[ "tNormal" ].texture = uniformsUV[ "tNormal" ].texture;
+uniforms[ "passID" ].value = 1;
+
+var parameters = { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShader, uniforms: uniforms, lights: true };
+var parametersUV = { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShaderUV, uniforms: uniformsUV, lights: true };
+
+
+material = new ONE.ShaderMaterial( parameters );
+var materialUV = new ONE.ShaderMaterial( parametersUV );
+
+
+
+
+// RENDERER
+
+renderer = new ONE.WebGLRenderer( { antialias: true } );
+renderer.setSize( window.innerWidth/5, window.innerHeight/5 );
+renderer.setClearColor( 0x050505, 1 );
+renderer.autoClear = false;
+
+renderer.domElement.id = "ONEJS"
+container.appendChild( renderer.domElement );
+
+
+// STATS
+
+if ( statsEnabled ) {
+
+	stats = new Stats();
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.top = '0px';
+	stats.domElement.style.zIndex = 100;
+	container.appendChild( stats.domElement );
+
+}
+
+
+
+// var renderModelUV = new ONE.RenderPass( scene, camera, materialUV, new ONE.Color( 0xca9c8d ) );
+// var renderModel = new ONE.RenderPass( scene, camera );
+
+
+var pars = { minFilter: ONE.LinearMipmapLinearFilter, magFilter: ONE.LinearFilter, format: ONE.RGBAFormat, stencilBufer: false };
+var rtwidth = 512;
+var rtheight = 512;
+
+//
+
+// composerScene = new ONE.EffectComposer( renderer, new ONE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+// composerScene.addPass( renderModelUV );
+// composerScene.addPass( effectScreen );
+
+// renderScene = new ONE.TexturePass( composerScene.renderTarget2 );
+
+//
+
+// composerUV1 = new ONE.EffectComposer( renderer, new ONE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+
+// composerUV1.addPass( renderScene );
+// composerUV1.addPass( effectBloom1 );
+
+// composerUV2 = new ONE.EffectComposer( renderer, new ONE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+
+// composerUV2.addPass( renderScene );
+// composerUV2.addPass( effectBloom2 );
+
+// composerUV3 = new ONE.EffectComposer( renderer, new ONE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+
+// composerUV3.addPass( renderScene );
+// composerUV3.addPass( effectBloom3 );
+
+//
+
+// var effectBeckmann = new ONE.ShaderPass( ONE.ShaderSkin[ "beckmann" ] );
+
+// composerBeckmann = new ONE.EffectComposer( renderer, new ONE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+
+// composerBeckmann.addPass( effectBeckmann );
+
+var roughness = 0.185
+
+var Realuniforms = ONE.UniformsUtils.clone( uniformsUV );
+				Realuniforms[ "tDiffuse" ].texture = mapColor;
+				Realuniforms[ "tDiffuse" ].normalScale
+				Realuniforms[ "tNormal" ].value = 1;
+				// Realuniforms[ "tDiffuse" ].texture = uniformsUV[ "tDiffuse" ].texture;
+				Realuniforms[ "tNormal" ].texture = uniformsUV[ "tNormal" ].texture;
+				// Realuniforms[ "tNormal" ].value = uniformsUV[ "tNormal" ].texture;
+				Realuniforms[ "passID" ].value = 0;
+        //   Realuniforms[ "tBeckmann" ].value = composerBeckmann.renderTarget1;
+                        					Realuniforms[ "tDiffuse" ].value = mapColor;
+                        					Realuniforms[ "uRoughness" ].value = roughness;
+                        					Realuniforms[ "uSpecularBrightness" ].value = 0.75;
+                        				// Realuniforms[ "tBlur1" ].texture = composerScene.renderTarget1;
+                        				// Realuniforms[ "tBlur2" ].texture = composerUV1.renderTarget2;
+                        				// Realuniforms[ "tBlur3" ].texture = composerUV2.renderTarget2;
+                        				// Realuniforms[ "tBlur4" ].texture = composerUV3.renderTarget2;
+
+                        				// Realuniforms[ "tBeckmann" ].texture = composerBeckmann.renderTarget1;
+
+//
+
+// var effectBloom = new ONE.BloomPass( 0.25 );
+
+// var effectBleach = new ONE.ShaderPass( ONE.BleachBypassShader );
+// effectBleach.uniforms.opacity.value = 0.25;
+
+// effectBleach.renderToScreen = true;
+
+// composerFinal = new ONE.EffectComposer( renderer );
+
+// composerFinal.addPass( renderModel );
+// composerFinal.addPass( effectBloom );
+// composerFinal.addPass( effectBleach );
+
+//
+
+// uniforms[ "tBlur1" ].texture = composerScene.renderTarget1;
+// uniforms[ "tBlur2" ].texture = composerUV1.renderTarget2;
+// uniforms[ "tBlur3" ].texture = composerUV2.renderTarget2;
+// uniforms[ "tBlur4" ].texture = composerUV3.renderTarget2;
+
+// uniforms[ "tBeckmann" ].texture = composerBeckmann.renderTarget1;
+          
+          
+					var path = "textures/cube/pisa/";
+					var format = '.jpg';
+					var urls = [
+						path + 'posx' + format, path + 'negx' + format,
+						path + 'posy' + format, path + 'negy' + format,
+						path + 'posz' + format, path + 'negz' + format
+					];
+					
+					var textureCube = ONE.ImageUtils.loadTextureCube( urls );
+					
+					var tShirtBump = ONE.ImageUtils.loadTexture(faceMaps["shirt"][0]["src"]);
+					var eyeBump = ONE.ImageUtils.loadTexture(faceMaps["eyes"][8]["src"]);
+				
+					materials["eyes"] = new ONE.MeshPhongMaterial({map:canvasTextures["eyes"], shininess: 1900, combine: ONE.MixOperation, bumpMap: eyeBump,bumpScale: 0.05,  envMap: textureCube, reflectivity: 0.1 , specular: 0x151515 });
+					materials["lashes"] = new ONE.MeshPhongMaterial({map:canvasTextures["lashes"], transparent: true, side: ONE.DoubleSide });	
+					materials["shirt"] = new ONE.MeshPhongMaterial( {map:canvasTextures["shirt"] , specular: 0x111111, shininess: 25, bumpMap: tShirtBump, bumpScale: 0.3, metal: true } );
+					
+					
+					
+					materials["face"] = new ONE.ShaderMaterial( { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShader, uniforms: Realuniforms, lights: true } );
+
+					materials["plane"] = new ONE.MeshLambertMaterial({map:canvasTextures["plane"], transparent: true, side: ONE.DoubleSide });	
+					
+          
+        // var ambient = 0x111111, diffuse = 0xbbbbbb, specular = 0x070707, shininess = 50;
+
+
+          
+					// LOADER
+					loader = new ONE.JSONLoader( true );
+					document.body.appendChild( loader.statusDomElement );
+					
+					function loadingHandler(part) {
+						// console.log(part)
+						return function(geometry, material) {
+							faceMorphingVerts[part].push(geometry.vertices);
+							faceMesh[part] = new ONE.Mesh(geometry);
+
+							if(part == "face"){
+								// window.faceMapSkin = materials
+							}
+							addObjectToScene( geometry, 100, materials[part], part );
+							recursiveLoader(part, 1);
+						};
+					}
+					
+					for(part in faceMorphingFiles)
+					{
+						loader.load(faceMorphingFiles[part][0], loadingHandler(part));
+					}
+							
+					// EVENT LISTENER
+					document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+					document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+					document.addEventListener( 'mouseup', onDocumentMouseUp, false );	
+					
+					// STATS
+					if ( statsEnabled ) {
+						stats = new Stats();
+						container.appendChild( stats.domElement );
+					}
+					
+					// RENDERER
+					// var effectBeckmann = new ONE.ShaderPass( ONE.ShaderSkin[ "beckmann" ] );
+					// var effectCopy = new ONE.ShaderPass( ONE.CopyShader );
+
+					// effectCopy.renderToScreen = true;
+
+					// composerBeckmann.addPass( effectBeckmann );
+					// composerBeckmann.addPass( effectCopy );
+
+					// window.addEventListener( 'resize', onWindowResize, false );
+					
+
+					// openFaceGenerator()
+
+						console.log("end init!")
+				}
+
+
+
+				function initTHREE() {
+					
+					// var THREEfirstPass = true;
+					// clock = new ONE.Clock();
+					container = document.createElement( 'div' );
+					document.getElementById("container3D").appendChild( container );
+
+THREEcamera =  new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 10000 );
+					THREEcamera.position.z = 900;
+					// THREEcamera.lookAt(camLookAt);
+					// camHeight = camLookAt.y;
+        //   camHeight = camLookAt.y;
+        //   THREEcamera.position.y=100;
+					// 
+					// targetZoom = zoom = THREEcamera.fov;
+					
+					
+					//console.log("targetZoom: " + targetZoom);
+					THREEscene = new THREE.Scene();
+					// THREEsceneThree = new THREE.Scene();
+					
+					// camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 10000 );
+				// camera.position.z = 900;
+
+				THREEscene = new THREE.Scene();
+				THREEscene.background = new THREE.Color( 0x050505 );
+
+
+
+			    directionalLight = new THREE.DirectionalLight( 0xffeedd, 1.5 );
+				directionalLight.position.set( 1, 0.5, 900 );
+				THREEscene.add( directionalLight );
+
+				var newdirectionalLight = new THREE.DirectionalLight( 0xffffff, 9000 );
+				newdirectionalLight.position.set( new THREE.Vector3( 1, 0.5, 900 ));
+				const targetObject = new THREE.Object3D();
+				THREEscene.add(targetObject);
+				newdirectionalLight.target = targetObject;
+				THREEscene.add( newdirectionalLight );
+
+
+				    var newambientlight = new THREE.AmbientLight( 0x444444, 1.0 );
+					THREEscene.add( newambientlight );
+
+					// MATERIALS
+					// for(var map in faceMaps){
+					// 	canvasImages[map] = null;
+					// 	canvasImages[map] = document.createElement('canvas');
+					// 	canvasContexts[map] = canvasImages[map].getContext('2d');
+					// 	canvasTextures[map] = new THREE.Texture(canvasImages[map]);
+					// 	canvasImages[map].width = faceMaps[map]["width"];
+					// 	canvasImages[map].height = faceMaps[map]["width"];	
+					// 	//renderer.deallocateTexture(canvasTextures[map]);
+						
+					// 	for(var i = 0; i < faceMaps[map].length; i++){
+					// 		//console.log("Map Length: " + faceMaps[map].length + " " + map + " " + faceMaps[map][i]["src"] );
+					// 		faceMaps[map][i]["img"] = new Image();
+					// 		faceMaps[map][i]["img"].onload = function() {
+					// 			removeLoadingBar();
+					// 		};
+					// 		faceMaps[map][i]["img"].src = faceMaps[map][i]["src"];
+					// 	}
+					// }			
+	
+				
+            
+var ambient = 0x111111, diffuse = 0xbbbbbb, specular = 0x070707, shininess = 50;
+
+specular = 0x555555;
+
+
+
+
+
+// RENDERER
+
+THREErenderer = new THREE.WebGLRenderer( { antialias: false } );
+THREErenderer.setSize( window.innerWidth*3, window.innerHeight*3 );
+// THREErenderer.setClearColor( 0x050505, 1 );
+// THREErenderer.autoClear = false;
+
+THREErenderer.domElement.id = "THREEJS"
+container.appendChild( THREErenderer.domElement );
+
+controls = new THREE.OrbitControls( THREEcamera, THREErenderer.domElement );
+controls.update();
+// document.querySelector("#THREEJS").style.height = window.innerHeight
+// document.querySelector("#THREEJS").style.width = window.innerWidth
+
+// STATS
+
+if ( statsEnabled ) {
+
+	stats = new Stats();
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.top = '0px';
+	stats.domElement.style.zIndex = 100;
+	container.appendChild( stats.domElement );
+
+}
+
+
+
+// var renderModelUV = new THREE.RenderPass( THREEscene, camera, materialUV, new THREE.Color( 0xca9c8d ) );
+// var renderModel = new THREE.RenderPass( THREEscene, camera );
+const geometry1234 = new THREE.SphereGeometry( 15, 32, 16 );
+const material1234 = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+const sphere1234 = new THREE.Mesh( geometry1234, material1234 );
+THREEscene.add( sphere1234 );
+console.log(THREEscene)
+
+// THREEscene.add( THREEcamera );
+// THREEcamera.lookAt(new THREE.Vector3(0,0,0));
+
+// var pars = { minFilter: THREE.LinearMipmapLinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBufer: false };
+// var rtwidth = 512;
+// var rtheight = 512;
+
+
+
+
+var diffuse = 0xbbbbbb, specular = 0x555555;
+
+var asdfshader = THREE.ShaderSkin[ "skin" ];
+
+var THREEuniformsUV = THREE.UniformsUtils.clone( asdfshader.uniforms );
+
+var textureLoaderasdf = new THREE.TextureLoader();
+
+// THREEuniformsUV[ "tNormal" ].value = textureLoaderasdf.load( "../three.js-r100/examples/models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg" );
+console.log("facecontext", canvasContexts["face"])
+canvasContexts["face"].id = "canvasFaceContext"
+
+window.faceTextureUSeCase = true
+window.faceTextureUSe = new THREE.CanvasTexture(canvasTextures["face"].image)
+THREEuniformsUV["tNormal"].value = faceTextureUSe
+THREEuniformsUV[ "uNormalScale" ].value = - 1.5;
+
+// THREEuniformsUV[ "tDiffuse" ].value = textureLoaderasdf.load( "../three.js-r100/examples/models/gltf/LeePerrySmith/Map-COL.jpg" );
+THREEuniformsUV[ "tDiffuse" ].value = window.faceTextureUSe
+
+THREEuniformsUV[ "passID" ].value = 0;
+
+THREEuniformsUV[ "diffuse" ].value.setHex( diffuse );
+THREEuniformsUV[ "specular" ].value.setHex( specular );
+
+THREEuniformsUV[ "uRoughness" ].value = 0.185;
+THREEuniformsUV[ "uSpecularBrightness" ].value = 0.7;
+
+
+var THREEuniforms = THREE.UniformsUtils.clone( THREEuniformsUV );
+THREEuniforms[ "tDiffuse" ].value = THREEuniformsUV[ "tDiffuse" ].value;
+THREEuniforms[ "tNormal" ].value = THREEuniformsUV[ "tNormal" ].value;
+THREEuniforms[ "passID" ].value = 1;
+
+
+THREEparameters = { fragmentShader: asdfshader.fragmentShader, vertexShader: asdfshader.vertexShader, uniforms: THREEuniforms, lights: true };
+THREEparametersUV = { fragmentShader: asdfshader.fragmentShader, vertexShader: asdfshader.vertexShaderUV, uniforms: THREEuniformsUV, lights: true };
+
+
+var THREEmaterial = new THREE.ShaderMaterial( THREEparameters );
+THREEmaterial.shading = THREE.SmoothShading
+THREEmaterial.extensions.derivatives = true;
+
+var THREEmaterialUV = new THREE.ShaderMaterial( THREEparametersUV );
+THREEmaterialUV.extensions.derivatives = true;
+
+window.THREEmaterial = THREEmaterial
+window.THREEmaterialUV = THREEmaterialUV
+
+// LOADER
+
+var asdfloader = new THREE.GLTFLoader();
+
+function createScene( geometry, scale, material ) {
+
+// mesh = new THREE.Mesh( geometry, material );
+// mesh.position.y = - 50;
+// // mesh.scale.set( scale, scale, scale );
+// mesh.scale.set( 0.1, 0.1, 0.1 );
+
+// mesh.name="demoFace"
+// // THREEscene.add( mesh );
+
+}
+
+asdfloader.load( "../three.js-r100/examples/models/gltf/LeePerrySmith/LeePerrySmith.glb", function ( gltf ) {
+
+
+
+
+	createScene( gltf.scene.children[ 0 ].geometry, 100, THREEmaterial );
+
+})
+
+				// POSTPROCESSING
+
+				var THREErenderModelUV = new THREE.RenderPass( THREEscene,THREEcamera, THREEmaterialUV, new THREE.Color( 0x575757 ) );
+
+				var THREEeffectCopy = new THREE.ShaderPass( THREE.CopyShader );
+
+				var THREEeffectBloom1 = new THREE.BloomPass( 1, 15, 2, 512 );
+				var THREEeffectBloom2 = new THREE.BloomPass( 1, 25, 3, 512 );
+				var THREEeffectBloom3 = new THREE.BloomPass( 1, 25, 4, 512 );
+
+				THREEeffectBloom1.clear = true;
+				THREEeffectBloom2.clear = true;
+				THREEeffectBloom3.clear = true;
+
+				THREEeffectCopy.renderToScreen = true;
+
+				//
+
+				var THREEpars = {
+					generateMipmaps: true,
+					minFilter: THREE.LinearMipmapLinearFilter,
+					magFilter: THREE.LinearFilter,
+					format: THREE.RGBFormat,
+					stencilBuffer: false
+				};
+
+				var THREErtwidth = 512;
+				var THREErtheight = 512;
+
+				//
+
+				THREEcomposer = new THREE.EffectComposer( THREErenderer, new THREE.WebGLRenderTarget( THREErtwidth, THREErtheight, THREEpars ) );
+				THREEcomposer.addPass( THREErenderModelUV );
+
+				var THREErenderScene = new THREE.TexturePass( THREEcomposer.renderTarget2.texture );
+
+				//
+
+				THREEcomposerUV1 = new THREE.EffectComposer( THREErenderer, new THREE.WebGLRenderTarget( THREErtwidth, THREErtheight, THREEpars ) );
+
+				THREEcomposerUV1.addPass( THREErenderScene );
+				THREEcomposerUV1.addPass( THREEeffectBloom1 );
+
+				THREEcomposerUV2 = new THREE.EffectComposer( THREErenderer, new THREE.WebGLRenderTarget( THREErtwidth, THREErtheight, THREEpars ) );
+
+				THREEcomposerUV2.addPass( THREErenderScene );
+				THREEcomposerUV2.addPass( THREEeffectBloom2 );
+
+				THREEcomposerUV3 = new THREE.EffectComposer( THREErenderer, new THREE.WebGLRenderTarget( THREErtwidth, THREErtheight, THREEpars ) );
+
+				THREEcomposerUV3.addPass( THREErenderScene );
+				THREEcomposerUV3.addPass( THREEeffectBloom3 );
+
+				//
+
+				var THREEeffectBeckmann = new THREE.ShaderPass( THREE.ShaderSkin[ "beckmann" ] );
+				THREEcomposerBeckmann = new THREE.EffectComposer( THREErenderer, new THREE.WebGLRenderTarget( THREErtwidth, THREErtheight, THREEpars ) );
+				THREEcomposerBeckmann.addPass( THREEeffectBeckmann );
+
+				//
+
+				THREEuniforms[ "tBlur1" ].value = THREEcomposer.renderTarget2.texture;
+				THREEuniforms[ "tBlur2" ].value = THREEcomposerUV1.renderTarget2.texture;
+				THREEuniforms[ "tBlur3" ].value = THREEcomposerUV2.renderTarget2.texture;
+				THREEuniforms[ "tBlur4" ].value = THREEcomposerUV3.renderTarget2.texture;
+
+				THREEuniforms[ "tBeckmann" ].value = THREEcomposerBeckmann.renderTarget1.texture;
+
+	
+// composerScene = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+// composerScene.addPass( renderModelUV );
+// composerScene.addPass( effectScreen );
+
+// renderScene = new THREE.TexturePass( composerScene.renderTarget2 );
+
+//
+
+// composerUV1 = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+
+// composerUV1.addPass( renderScene );
+// composerUV1.addPass( effectBloom1 );
+
+// composerUV2 = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+
+// composerUV2.addPass( renderScene );
+// composerUV2.addPass( effectBloom2 );
+
+// composerUV3 = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+
+// composerUV3.addPass( renderScene );
+// composerUV3.addPass( effectBloom3 );
+
+//
+
+// var effectBeckmann = new THREE.ShaderPass( THREE.ShaderSkin[ "beckmann" ] );
+
+// composerBeckmann = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtwidth, rtheight, pars ) );
+
+// composerBeckmann.addPass( effectBeckmann );
+
+// var roughness = 0.185
+
+// var Realuniforms = THREE.UniformsUtils.clone( uniformsUV );
+// 				Realuniforms[ "tDiffuse" ].texture = mapColor;
+// 				Realuniforms[ "tDiffuse" ].normalScale
+// 				Realuniforms[ "tNormal" ].value = 1;
+// 				// Realuniforms[ "tDiffuse" ].texture = uniformsUV[ "tDiffuse" ].texture;
+// 				Realuniforms[ "tNormal" ].texture = uniformsUV[ "tNormal" ].texture;
+// 				// Realuniforms[ "tNormal" ].value = uniformsUV[ "tNormal" ].texture;
+// 				Realuniforms[ "passID" ].value = 0;
+//         //   Realuniforms[ "tBeckmann" ].value = composerBeckmann.renderTarget1;
+//                         					Realuniforms[ "tDiffuse" ].value = mapColor;
+//                         					Realuniforms[ "uRoughness" ].value = roughness;
+//                         					Realuniforms[ "uSpecularBrightness" ].value = 0.75;
+//                         				// Realuniforms[ "tBlur1" ].texture = composerScene.renderTarget1;
+//                         				// Realuniforms[ "tBlur2" ].texture = composerUV1.renderTarget2;
+//                         				// Realuniforms[ "tBlur3" ].texture = composerUV2.renderTarget2;
+//                         				// Realuniforms[ "tBlur4" ].texture = composerUV3.renderTarget2;
+
+//                         				// Realuniforms[ "tBeckmann" ].texture = composerBeckmann.renderTarget1;
+
+//
+
+// var effectBloom = new THREE.BloomPass( 0.25 );
+
+// var effectBleach = new THREE.ShaderPass( THREE.BleachBypassShader );
+// effectBleach.uniforms.opacity.value = 0.25;
+
+// effectBleach.renderToScreen = true;
+
+// composerFinal = new THREE.EffectComposer( renderer );
+
+// composerFinal.addPass( renderModel );
+// composerFinal.addPass( effectBloom );
+// composerFinal.addPass( effectBleach );
+
+//
+
+// uniforms[ "tBlur1" ].texture = composerScene.renderTarget1;
+// uniforms[ "tBlur2" ].texture = composerUV1.renderTarget2;
+// uniforms[ "tBlur3" ].texture = composerUV2.renderTarget2;
+// uniforms[ "tBlur4" ].texture = composerUV3.renderTarget2;
+
+// uniforms[ "tBeckmann" ].texture = composerBeckmann.renderTarget1;
+          
+          
+					// var path = "textures/cube/pisa/";
+					// var format = '.jpg';
+					// var urls = [
+					// 	path + 'posx' + format, path + 'negx' + format,
+					// 	path + 'posy' + format, path + 'negy' + format,
+					// 	path + 'posz' + format, path + 'negz' + format
+					// ];
+					
+					// var textureCube = THREE.ImageUtils.loadTextureCube( urls );
+					
+					// var tShirtBump = THREE.ImageUtils.loadTexture(faceMaps["shirt"][0]["src"]);
+					// var eyeBump = THREE.ImageUtils.loadTexture(faceMaps["eyes"][8]["src"]);
+				
+					// materials["eyes"] = new THREE.MeshPhongMaterial({map:canvasTextures["eyes"], shininess: 1900, combine: THREE.MixOperation, bumpMap: eyeBump,bumpScale: 0.05,  envMap: textureCube, reflectivity: 0.1 , specular: 0x151515 });
+					// materials["lashes"] = new THREE.MeshPhongMaterial({map:canvasTextures["lashes"], transparent: true, side: THREE.DoubleSide });	
+					// materials["shirt"] = new THREE.MeshPhongMaterial( {map:canvasTextures["shirt"] , specular: 0x111111, shininess: 25, bumpMap: tShirtBump, bumpScale: 0.3, metal: true } );
+					
+					
+					
+					// materials["face"] = new THREE.ShaderMaterial( { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShader, uniforms: Realuniforms, lights: true } );
+
+					// materials["plane"] = new THREE.MeshLambertMaterial({map:canvasTextures["plane"], transparent: true, side: THREE.DoubleSide });	
+					
+          
+        // var ambient = 0x111111, diffuse = 0xbbbbbb, specular = 0x070707, shininess = 50;
+
+
+          
+					// LOADER
+					// loader = new THREE.JSONLoader( true );
+					// document.body.appendChild( loader.statusDomElement );
+					
+					// function loadingHandler(part) {
+					// 	// console.log(part)
+					// 	return function(geometry, material) {
+					// 		faceMorphingVerts[part].push(geometry.vertices);
+					// 		faceMesh[part] = new THREE.Mesh(geometry);
+
+					// 		addObjectToScene( geometry, 100, materials[part], part );
+					// 		recursiveLoader(part, 1);
+					// 	};
+					// }
+					
+					// for(part in faceMorphingFiles)
+					// {
+					// 	loader.load(faceMorphingFiles[part][0], loadingHandler(part));
+					// }
+							
+					// EVENT LISTENER
+					// document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+					// document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+					// document.addEventListener( 'mouseup', onDocumentMouseUp, false );	
+					
+					// STATS
+					// if ( statsEnabled ) {
+					// 	stats = new Stats();
+					// 	container.appendChild( stats.domElement );
+					// }
+					
+					// RENDERER
+					// var effectBeckmann = new THREE.ShaderPass( THREE.ShaderSkin[ "beckmann" ] );
+					// var effectCopy = new THREE.ShaderPass( THREE.CopyShader );
+
+					// effectCopy.renderToScreen = true;
+
+					// composerBeckmann.addPass( effectBeckmann );
+					// composerBeckmann.addPass( effectCopy );
+
+					// window.addEventListener( 'resize', onWindowResize, false );
+					
+
+					// openFaceGenerator()
+
+						console.log("end initTHREE!")
+						window.THREESETUP = true;
+				}
+
+
+				
+				
+			</script>
+		</div>
+	</body>
+</html>
